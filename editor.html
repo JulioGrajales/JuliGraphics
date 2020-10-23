@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JULIGRAPHICS - EDITOR - BETA</title>
+    <!-- ICONO -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+
+    <!-- LIBRERIA CSS DE MATERIALIZE -->
+    <link rel="stylesheet" href="CSS/LIBRERIAS_CSS/materialize.min.css">
+    <!-- LIBERRIA CSS DE ICONOS DE MATERIALIZE -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- ESTILOS PROPIOS DE CSS -->
+    <link rel="stylesheet" href="CSS/estilosPropios.css">
+    <!-- LIBRERIA JS DE MATERIALIZE -->
+    <script src="JS/LIBRERIAS_JS/materialize.min.js"></script>
+    <!-- LIBRERIA JS DE JSCOLOR -->
+    <script src="JS/LIBRERIAS_JS/jscolor.js"></script>
+    <!-- LIBRERIA JS DE KONVA -->
+    <script src="JS/LIBRERIAS_JS/konva.min.js"></script>
+    <!-- LIBRERIA JS DE JQUERY -->
+    <script src="JS/LIBRERIAS_JS/jquery-3.5.1.min.js"></script>
+    <!-- SCRIPTS PROPIOS DE JS -->
+    <script type="module" src="JS/main.js"></script>
+
+
+
+
+    <!-- SCRIPT PARA NO BORRAR TODO AL RECARGAR LA PAGINA POR ACCIDENTE -->
+    <script>
+        window.onbeforeunload = function() {
+            return "¿hola?";
+        };
+    </script>
+
+</head>
+
+
+<body>
+
+    <!--PRELOADER-->
+    <div class="loader"></div>
+
+    <!-- BARRA DE NAVEGACION -->
+    <nav>
+        <div class="nav-wrapper b-azul">
+            <a class="brand-logo center tooltipped" data-position="left" data-tooltip="Beta V.1.0.3" style="font-weight: bold;">
+                JULIGRAPHICS
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="#modal1" class="tooltipped modal-trigger" data-position="left" data-tooltip="Ayuda">
+                        <i class="material-icons">help_outline</i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="left hide-on-med-and-down">
+                <li>
+                    <a href="index.html" class="tooltipped" data-position="right" data-tooltip="Regresar al inicio">
+                        <i class="material-icons">keyboard_return</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ------------------- -->
+
+
+    <!-- CONTENIDO DEL EDITOR -->
+    <div class="row">
+
+        <!-- BARRA DE HERRAMIENTAS PRIMERA PARTE -->
+        <div class="col s1 ">
+            <div class=" container">
+                <div class="card white">
+                    <div class="collection">
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Cuadrado" data-figura="cuadrado">
+                            <div class="herramienta">
+                                <img src="IMG/cuadrado.png" alt="Cuadrado">
+                            </div>
+                        </a>
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Circulo" data-figura="circulo">
+                            <div class="herramienta">
+                                <img src="IMG/circulo.png" alt="Circulo">
+                            </div>
+                        </a>
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Triangulo" data-figura="triangulo" id="triangulo">
+                            <div class="herramienta">
+                                <img src="IMG/triangulo.png" alt="Triangulo">
+                            </div>
+                        </a>
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Pentágono" data-figura="pentagono">
+                            <div class="herramienta">
+                                <img src="IMG/pentagono.png" alt="Pentagono">
+                            </div>
+                        </a>
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Estrella" data-figura="estrella">
+                            <div class="herramienta">
+                                <img src="IMG/estrella.png" alt="Estrella">
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <!-- BARRA DE HERRAMIENTAS SEGUNDA PARTE -->
+            <div class=" container">
+                <div class="card white">
+                    <div class="collection">
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Flecha" data-figura="flecha">
+                            <div class="herramienta">
+                                <img src="IMG/flecha.png" alt="Flecha">
+                            </div>
+                        </a>
+
+                        <a href="#!" class="collection-item tooltipped" data-position="right" data-tooltip="Texto" data-figura="texto">
+                            <div class="herramienta">
+                                <img src="IMG/texto.png" alt="Texto">
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- --------------------- -->
+
+
+        <!-- BOTONES DE ELIMINAR Y LIENZO -->
+        <div class="col s8">
+            <div class="col s12">
+
+                <!-- BOTONES DE BORRAR Y LIMPIAR -->
+                <div class="centro botones">
+                    <a class="waves-effect waves-light btn-small t-azul white left tooltipped bold" id="eliminarIndividualmente" data-position="right" data-tooltip="Borrar objeto seleccionado ( Supr )">
+                        <i class="material-icons left t-naranja">delete</i>Borrar
+                    </a>
+                    <a class="waves-effect waves-light btn-small t-azul white right tooltipped bold modal-trigger" href="#modal3" id="modal3Trigger" data-position="left" data-tooltip="Limpiar todo ( Ctrl + Supr )">
+                        <i class="material-icons right left t-naranja">delete_sweep</i>Limpiar
+                    </a>
+                </div>
+                <!-- ---------------------------- -->
+
+                <!-- LIENZO -->
+                <div class="col s12 card " style="padding: 0;height: 450px; background-color:white;" id="lienzo"></div>
+                <!-- ------ -->
+
+                <div class="center botones">
+
+                    <a href="#modal2" class="waves-effect waves-light btn-small t-azul white right tooltipped bold modal-trigger" id="descargar" data-position="left" data-tooltip="Descargar imagen como png ( Ctrl + S )">
+                        <i class="material-icons right t-naranja">file_download</i>Descargar
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- ---------------------------- -->
+
+
+        <!-- MENU DE OPCIONES -->
+        <div class="col s3 " id="menuOpciones">
+
+            <div class="menu card">
+                <div class="card-image">
+                    <img src="IMG/close-up-photography-of-colored-pencils-743986.jpg">
+                    <span class="card-title" style="font-weight: bold;">Colores y más..</span>
+                </div>
+
+                <div class="menuOpciones">
+
+
+                    <h5 class="t-azul center">Color del lienzo</h5>
+                    <input id="lienzoColorElemento">
+
+                    <div id="containerFiguraColor" class="hide">
+                        <h5 class="t-azul center">Color del objeto</h5>
+                        <input id="figuraColorElemento">
+                    </div>
+
+                    <div id="containerRangoBorde" class="hide">
+                        <h5 class="t-azul center">Grosor del borde</h5>
+                        <p class="range-field">
+                            <input type="range" id="rangoBorde" min="0" max="20">
+                        </p>
+                    </div>
+
+                    <div id="containerEditarTexto" class="hide">
+                        <h5 class="t-azul center">Editar el texto</h5>
+
+                        <textarea rows="4" id="editarTexto"></textarea>
+
+
+                        <div class="center">
+                            <button class="btn waves-effect white t-azul tooltipped bold" id="guardarTexto" data-position="left" data-tooltip="Actualiza el texto ( Ctrl + Enter )">
+                                <i class="material-icons right left t-naranja">cached</i>Cambiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- ---------------- -->
+
+
+    </div>
+    <!-- -------------------- -->
+
+
+    <!--VENTANTA MODAL DE AYUDA -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4 class="t-naranja center">AYUDA</h4>
+            <hr>
+        </div>
+        <!--TABS -- SECCIONES DE AYUDA-->
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a href="#test1">Herramientas</a></li>
+                    <li class="tab col s3"><a href="#test2">Lienzo</a></li>
+                    <li class="tab col s3"><a href="#test3">Colores y Más</a></li>
+                    <li class="tab col s3"><a href="#test4">Comandos</a></li>
+                </ul>
+            </div>
+            <div id="test1" class="col s12">
+
+                <div class="row">
+                    <img class="materialboxed col s5" width="150" src="IMG/herramienta.gif">
+                    <div class="col s7">
+                        <p class="t-naranja">Juligraphics cuenta con varias herramientas sencillas de usar simplemente:</p>
+                        <p class=" gray-text pImg">
+                            Selecciónala desde la barra de la izquierda y el puntero cambiara de forma, después haz clic en el lienzo para pintar lo que hayas seleccionado.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="test2" class="col s12">
+
+                <div class="row">
+                    <img class="materialboxed col s5" width="150" src="IMG/lienzo.gif">
+                    <div class="col s7">
+                        <p class="t-naranja">Dentro del lienzo:</p>
+                        <p class=" gray-text pImg ">
+                            Puedes cambiar de tamaño, rotar o cambiar de posición la forma o el texto al seleccionarlo.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="test3" class="col s12">
+
+                <div class="row">
+                    <img class="materialboxed col s5" width="150" src="IMG/colores.gif">
+                    <div class="col s7">
+                        <p class="t-naranja">Al seleccionar una figura o texto se abre un menú en el cual puedes:</p>
+                        <p class=" gray-text pImg ">
+                            Cambiar de color el lienzo, la forma seleccionada, modificar el grosor del borde y cambiar el texto.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="test4" class="col s12">
+
+                <div class="row">
+                    <img class="materialboxed col s5" width="150" src="IMG/comandos.gif">
+                    <div class="col s7">
+                        <p class="t-naranja">Existen 4 botones y cada uno tiene su comando para trabajar mas rápido:</p>
+                        <p class=" gray-text pImg">
+                            BORRAR = SUPR
+                        </p>
+                        <p class=" gray-text pImg">
+                            LIMPIAR = CTRL + SUPR
+                        </p>
+                        <p class=" gray-text pImg">
+                            DESCARGAR = CTRL + S
+                        </p>
+                        <p class=" gray-text pImg ">
+                            CAMBIAR = CTRL + ENTER (Solo aplica al editar el texto)
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--FIN DE TABS-->
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">ACEPTAR</a>
+        </div>
+    </div>
+
+    <!-- VENTANA MODAL DESCARGAR-->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4 class="t-naranja center">GRACIAS POR USAR JULIGRAPHICS</h4>
+            <hr />
+            <h5>¿Te gustaría calificar nuestra aplicación?</h5>
+            <div class="row">
+                <div class="col s1"><i class="small material-icons star">star_rate</i></div>
+                <div class="col s1"><i class="small material-icons star">star_rate</i></div>
+                <div class="col s1"><i class="small material-icons star">star_rate</i></div>
+                <div class="col s1"><i class="small material-icons star">star_rate</i></div>
+                <div class="col s1"><i class="small material-icons star">star_rate</i></div>
+            </div>
+            <h5>¿Te gustaría dejar un comentario?</h5>
+            <textarea rows="4" class="editarTexto" id="retroText"></textarea>
+        </div>
+        <div class="modal-footer">
+            <a class="waves-effect waves-light btn-small t-azul white right  bold" id="guardarLienzo"><i class="material-icons right t-naranja">done_all</i>ACEPTAR Y DESCARGAR</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">CANCELAR</a>
+        </div>
+    </div>
+    <!-- VENTANA MODAL LIMPIAR TODA LA PANTALLA-->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h4 class="t-naranja center">LIMPIAR TODO EL LIENZO</h4>
+            <hr />
+            <h5>¿Seguro que quieres eliminar todas las figuras en el lienzo?</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">CANCELAR</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="eliminarTodo">SI, ELIMINAR</a>
+        </div>
+    </div>
+
+
+    <!-- CODIGO DE VENTANA MODAL-->
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $(".loader").fadeOut("slow");
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+
+            var elems = document.querySelectorAll('.materialboxed');
+            var instances = M.Materialbox.init(elems);
+        });
+
+        let tabs = document.querySelector(".tabs")
+        var instance = M.Tabs.init(tabs);
+    </script>
+
+    <script src="JS/LIBRERIAS_JS/shortcut.js"></script>
+    <!--COMANDOS-->
+    <script type="text/javascript">
+        shortcut.add("delete", function() {
+            var elemento = document.getElementById('eliminarIndividualmente');
+            elemento.click();
+        });
+
+        shortcut.add("ctrl+delete", function() {
+            var elemento = document.getElementById('modal3Trigger');
+            elemento.click();
+        });
+
+        shortcut.add("ctrl+s", function() {
+            var elemento = document.getElementById('descargar');
+            elemento.click();
+        });
+
+        shortcut.add("ctrl+enter", function() {
+            var elemento = document.getElementById('guardarTexto');
+            elemento.click();
+            console.clear();
+        });
+    </script>
+
+    <!-- ----------------------- -->
+
+</body>
+
+
+</html>
